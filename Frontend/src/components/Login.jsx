@@ -50,7 +50,7 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="md:w-96 w-80 flex flex-col items-center justify-center">
           <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
           <p className="text-sm text-gray-500/90 mt-3">Welcome back! Please sign in to continue</p>
-          <button
+          {/* <button
             onClick={googleLogin}
             type="button"
             className="cursor-pointer w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full"
@@ -59,10 +59,10 @@ const Login = () => {
               src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
               alt="googleLogo"
             />
-          </button>
+          </button> */}
           <div className="flex items-center gap-4 w-full my-5">
             <div className="w-full h-px bg-gray-300/90"></div>
-            <p className="w-full text-nowrap text-sm text-gray-500/90">or sign in with email</p>
+            {/* <p className="w-full text-nowrap text-sm text-gray-500/90">or sign in with email</p> */}
             <div className="w-full h-px bg-gray-300/90"></div>
           </div>
           <div className="flex items-center w-full border border-gray-300/60 h-12 rounded-full pl-6 gap-2">
