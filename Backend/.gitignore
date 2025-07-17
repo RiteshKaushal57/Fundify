@@ -1,0 +1,6 @@
+.env
+gcs-key.json
+data
+location
+node_modules
+seedBusinessIdeas.js
