@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const UserContext = createContext();
-const BACKEND_URL = import.meta.env.VITE_Backend_URL ?? 'http://localhost:4000';
+const BACKEND_URL = import.meta.env.VITE_Backend_URL
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
