@@ -20,36 +20,41 @@ import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
+// 🟩 1) CORS — allow Vercel frontend (and optionally localhost dev)
+const allowedOrigins = [
+  "https://fundify-frontend-two.vercel.app", // your deployed frontend
+  //"http://localhost:5173",                // for local dev — uncomment if needed
+];
 app.use(
   cors({
-    origin: "https://fundify-frontend-two.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
+// Make sure CORS works for preflight too
+app.options("*", cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
-
-
+// 🟩 2) Route mounting
 app.use("/", userRouter);
-app.use('/entrepreneur', entrepreneurRoute)
-app.use('/', businessIdeaRouter)
-app.use('/investor', investRouter)
-app.use('/location', locationRouter)
-app.use('/advisor', advisorRouter)
-app.use(investmentRouter)
-app.use(Queryrouter)
+app.use("/entrepreneur", entrepreneurRoute);
+app.use("/", businessIdeaRouter);
+app.use("/investor", investRouter);
+app.use("/location", locationRouter);
+app.use("/advisor", advisorRouter);
+app.use(investmentRouter);
+app.use(Queryrouter);
+app.use("/", uploadRouter);
 
-
-
-app.use('/', uploadRouter)
-
-
+// 🟩 3) Google OAuth Callback — set secure cookie for Vercel!
 app.get(
   "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 app.get(
   "/auth/google/callback",
@@ -58,6 +63,7 @@ app.get(
     session: false,
   }),
   (req, res) => {
+    const user = req.user;
     const token = jwt.sign(
       { id: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
@@ -66,9 +72,9 @@ app.get(
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 3600000, // 1 hour
+      secure: true,           // Required for SameSite: "none"!
+      sameSite: "none",       // Only works if frontend is also HTTPS!
+      maxAge: 3600000,
     });
     res.redirect(process.env.GOOGLE_REDIRECT_URL);
     console.log("Google Callback URL:", process.env.GOOGLE_CALLBACK_URL);
@@ -79,8 +85,9 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Fundify");
 });
 
-app.listen(4000, () => {
-  console.log("Server is running on port 4000");
+// 🟩 4) Start only after DB is connected — best practice!
+connectToMongoDB().then(() => {
+  app.listen(4000, () => {
+    console.log("Server is running on port 4000");
+  });
 });
-
-connectToMongoDB();
