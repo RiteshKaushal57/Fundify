@@ -49,7 +49,7 @@ app.use("/location", locationRouter);
 app.use("/advisor", advisorRouter);
 app.use(investmentRouter);
 app.use(Queryrouter);
-app.use("/", uploadRouter);
+app.use("/upload-documents", uploadRouter);
 
 
 app.get("/", (req, res) => {

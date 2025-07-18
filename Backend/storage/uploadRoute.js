@@ -6,7 +6,7 @@ const uploadRouter = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 uploadRouter.post(
-  '/upload-documents',
+  '/',
   upload.fields([
     { name: 'aadhaarDocument', maxCount: 1 },
     { name: 'panDocument', maxCount: 1 },
