@@ -20,12 +20,24 @@ import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
-forever.use(
-  cors({
-    origin: "https://fundify-frontend-two.vercel.app",
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "https://fundify-frontend-two.vercel.app"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Handle preflight
+
 
 app.use(express.json());
 app.use(cookieParser());
