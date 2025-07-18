@@ -20,26 +20,12 @@ import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
-const allowedOrigins = [
-  "https://fundify-frontend-two.vercel.app"
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
-
-app.options("*", cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
-
+forever.use(
+  cors({
+    origin: "https://fundify-frontend-two.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -76,8 +62,8 @@ app.get(
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,           // Required for SameSite: "none"!
-      sameSite: "none",       // Only works if frontend is also HTTPS!
+      secure: true, // Required for SameSite: "none"!
+      sameSite: "none", // Only works if frontend is also HTTPS!
       maxAge: 3600000,
     });
     res.redirect(process.env.GOOGLE_REDIRECT_URL);
@@ -89,5 +75,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Fundify");
 });
 
-await connectToMongoDB()
+connectToMongoDB(); // fire and forget
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log("Server is running");
+});
+
 export default app;
