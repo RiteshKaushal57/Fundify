@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 
 connectToMongoDB(); // fire and forget
 
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
 // app.listen(PORT, () => {
 //   console.log("Server is running");
 // });
