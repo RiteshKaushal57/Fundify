@@ -2,8 +2,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import cors from "cors";
-import passport from "./config/passport.js";
-import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import connectToMongoDB from "./MongoDB/connection.js";
 
@@ -53,35 +51,6 @@ app.use(investmentRouter);
 app.use(Queryrouter);
 app.use("/", uploadRouter);
 
-// 🟩 3) Google OAuth Callback — set secure cookie for Vercel!
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    session: false,
-  }),
-  (req, res) => {
-    const user = req.user;
-    const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true, // Required for SameSite: "none"!
-      sameSite: "none", // Only works if frontend is also HTTPS!
-      maxAge: 3600000,
-    });
-    res.redirect(process.env.GOOGLE_REDIRECT_URL);
-    console.log("Google Callback URL:", process.env.GOOGLE_CALLBACK_URL);
-  }
-);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Fundify");
