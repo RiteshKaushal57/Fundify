@@ -20,22 +20,26 @@ import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
-// 🟩 1) CORS — allow Vercel frontend (and optionally localhost dev)
 const allowedOrigins = [
-  "https://fundify-frontend-two.vercel.app", // your deployed frontend
-  //"http://localhost:5173",                // for local dev — uncomment if needed
+  "https://fundify-frontend-two.vercel.app"
 ];
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
-// Make sure CORS works for preflight too
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
 app.options("*", cors({
   origin: allowedOrigins,
-  credentials: true,
+  credentials: true
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());
