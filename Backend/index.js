@@ -85,9 +85,5 @@ app.get("/", (req, res) => {
   res.send("Welcome to the Fundify");
 });
 
-// 🟩 4) Start only after DB is connected — best practice!
-connectToMongoDB().then(() => {
-  app.listen(4000, () => {
-    console.log("Server is running on port 4000");
-  });
-});
+await connectToMongoDB()
+export default app;
