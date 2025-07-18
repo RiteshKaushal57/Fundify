@@ -94,4 +94,9 @@ app.listen(PORT, () => {
   console.log("Server is running");
 });
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
+
 export default app;
