@@ -6,9 +6,9 @@ import {
 } from '../controllers/advisorQueryController.js';
 import { isAuthenticated } from "../middleware/authenticateUser.js";
 
-const Queryrouter = express.Router();
+const queryRouter = express.Router();
 
-Queryrouter.post("/:businessId", isAuthenticated, postQuery);
-Queryrouter.get("/:businessId", isAuthenticated, getQueriesForBusiness);
+queryRouter.post("/:businessId", isAuthenticated, postQuery);
+queryRouter.get("/:businessId", isAuthenticated, getQueriesForBusiness);
 
-export default Queryrouter;
+export default queryRouter;
