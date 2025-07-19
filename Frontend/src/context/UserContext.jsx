@@ -30,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
   const fetchLoggedInUser = async () => {
     try {
-      const res = await fetch("https://fundify-backend-eight.vercel.app/user/me", {
+      const res = await axios.get(`${BACKEND_URL}/user/me`, {
         credentials: "include", // this sends cookies
       });
 
