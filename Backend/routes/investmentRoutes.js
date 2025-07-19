@@ -5,6 +5,6 @@ import { investInBusiness } from "../controllers/investmentController.js";
 const investmentRouter = express.Router();
 
 // POST /api/invest
-investmentRouter.post('/invest', isAuthenticated, requireRole("Investor"), investInBusiness);
+investmentRouter.post('/', isAuthenticated, requireRole("Investor"), investInBusiness);
 
 export default investmentRouter;

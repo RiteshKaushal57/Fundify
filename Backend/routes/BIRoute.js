@@ -9,14 +9,14 @@ import { isAuthenticated, requireRole } from "../middleware/authenticateUser.js"
 const businessIdeaRouter = express.Router();
 
 // GET all business ideas
-businessIdeaRouter.get("/business-ideas", allBusinessIdeas);
+businessIdeaRouter.get("/", allBusinessIdeas);
 
 // GET a specific business idea by ID
-businessIdeaRouter.get("/business-ideas/:id", getBusinessIdeaById);
+businessIdeaRouter.get("/:id", getBusinessIdeaById);
 
 // POST a new business idea (only for authenticated entrepreneurs)
 businessIdeaRouter.post(
-  "/business-ideas",
+  "/",
   isAuthenticated,
   requireRole("entrepreneur"),
   createBusinessIdea

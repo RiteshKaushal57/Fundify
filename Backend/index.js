@@ -15,6 +15,7 @@ import uploadRouter from "./storage/uploadRoute.js";
 import advisorRouter from "./routes/advisorRoutes.js";
 import Queryrouter from "./routes/queryRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
+import advisorQueryRouter from "./routes/advisorQueryRouter.js";
 
 const app = express();
 
@@ -41,16 +42,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 // 🟩 2) Route mounting
-app.use("/", userRouter);
+app.use("/user", userRouter);
 app.use("/entrepreneur", entrepreneurRoute);
-app.use("/", businessIdeaRouter);
+app.use("/business-idea", businessIdeaRouter);
 app.use("/investor", investRouter);
 app.use("/location", locationRouter);
 app.use("/advisor", advisorRouter);
-app.use("/",investmentRouter);
-app.use("/",Queryrouter);
+app.use("/invest",investmentRouter);
+app.use("/queries",Queryrouter);
 app.use("/upload-documents", uploadRouter);
-
+app.use("/advisor/queries", advisorQueryRouter)
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Fundify");

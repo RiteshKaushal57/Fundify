@@ -19,7 +19,7 @@ export const BusinessIdeaProvider = ({ children }) => {
     const allBusinessIdeas = async () => {
         setLoading(true);
         try {
-            const axiosResponse = await axios.get(`${BACKEND_URL}/business-ideas`);
+            const axiosResponse = await axios.get(`${BACKEND_URL}/business-idea`);
             setIdeas(axiosResponse.data)
             return { success: true, ideas: axiosResponse.data };
         } catch (error) {
@@ -33,7 +33,7 @@ export const BusinessIdeaProvider = ({ children }) => {
     // Fetch a business idea by ID
     const getBusinessIdeaById = async (id) => {
         try {
-            const axiosResponse = await axios.get(`${BACKEND_URL}/business-ideas/${id}`);
+            const axiosResponse = await axios.get(`${BACKEND_URL}/business-idea/${id}`);
             return { success: true, idea: axiosResponse.data };
         } catch (error) {
             const message = error.response?.data?.message || 'Failed to fetch business idea. Please try again.';
@@ -61,7 +61,7 @@ export const BusinessIdeaProvider = ({ children }) => {
             }
 
             const axiosResponse = await axios.post(
-                `${BACKEND_URL}/business-ideas`,
+                `${BACKEND_URL}/business-idea`,
                 ideaData,
                 config
             );

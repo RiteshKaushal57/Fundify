@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/auth`, { withCredentials: true });
+        const res = await axios.get(`${BACKEND_URL}/user/auth`, { withCredentials: true });
         if (res.data.user) {
           setUser(res.data.user);
           setIsLogin(true);
@@ -30,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   // Fetch user profile utility (for KYC refresh)
   const fetchUserProfile = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}/auth`, { withCredentials: true });
+      const res = await axios.get(`${BACKEND_URL}/user/auth`, { withCredentials: true });
       setUser(res.data.user);
       setActiveRoles(res.data.user.roles || []);
     } catch {
@@ -42,7 +42,7 @@ export const UserContextProvider = ({ children }) => {
   const registerUser = async (name, email, password, role) => {
     try {
       const axiosResponse = await axios.post(
-        `${BACKEND_URL}/register`,
+        `${BACKEND_URL}/user/register`,
         { name, email, password, role },
         { withCredentials: true }
       );
@@ -59,7 +59,7 @@ export const UserContextProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     try {
       const axiosResponse = await axios.post(
-        `${BACKEND_URL}/login`,
+        `${BACKEND_URL}/user/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -75,7 +75,7 @@ export const UserContextProvider = ({ children }) => {
 
   const logoutUser = async () => {
     try {
-      await axios.post(`${BACKEND_URL}/logout`, {}, { withCredentials: true });
+      await axios.post(`${BACKEND_URL}/user/logout`, {}, { withCredentials: true });
       setUser(null);
       setIsLogin(false);
       setActiveRoles([]);
