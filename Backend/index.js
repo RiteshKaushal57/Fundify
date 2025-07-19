@@ -21,7 +21,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
 app.use("/user", userRouter);
 app.use("/entrepreneur", entrepreneurRoute);
 app.use("/business-idea", businessIdeaRouter);
