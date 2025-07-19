@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 import userRouter from "./routes/userRoute.js";
 import entrepreneurRoute from "./routes/entreRoute.js";
@@ -27,6 +28,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(cookieParser());
+app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/entrepreneur", entrepreneurRoute);
