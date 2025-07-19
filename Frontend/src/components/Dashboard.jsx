@@ -144,13 +144,13 @@ const EntrepreneurPanel = () => {
   );
 };
 
-// Banker Panel
-const BankerPanel = () => (
-  <div>
-    <h2 className="text-xl font-bold mb-4">Banker Dashboard</h2>
-    <p>Post and manage loan offers here.</p>
-  </div>
-);
+// // Banker Panel
+// const BankerPanel = () => (
+//   <div>
+//     <h2 className="text-xl font-bold mb-4">Banker Dashboard</h2>
+//     <p>Post and manage loan offers here.</p>
+//   </div>
+// );
 
 // ✅ Advisor Panel showing answered queries
 const AdvisorPanel = () => {

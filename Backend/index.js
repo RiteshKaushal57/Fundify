@@ -34,11 +34,12 @@ const corsOptions = {
   credentials: true
 };
 
+app.use(express.json());
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions)); // Handle preflight
 
 
-app.use(express.json());
+
 app.use(cookieParser());
 
 // 🟩 2) Route mounting
