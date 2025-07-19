@@ -11,7 +11,7 @@ import investorRouter from "./routes/investorRoute.js";
 import locationRouter from "./routes/locationRoute.js";
 import advisorRouter from "./routes/advisorRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
-import Queryrouter from "./routes/QueryRoutes.js";
+import Queryrouter from "./routes/queryRoutes.js";
 import uploadRouter from "./storage/uploadRoute.js";
 import advisorQueryRouter from "./routes/advisorQueryRouter.js";
 
