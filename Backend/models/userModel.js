@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    phone: { type: String, unique: true },
-    // CHANGED: role -> roles (array)
+    phone: { type: String },
+    
     roles: {
       type: [String],
       enum: ["Investor", "Entrepreneur", "Banker", "Advisor", "Admin", "User"],
