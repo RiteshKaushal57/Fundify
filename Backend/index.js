@@ -9,13 +9,13 @@ import connectToMongoDB from "./MongoDB/connection.js";
 import userRouter from "./routes/userRoute.js";
 import entrepreneurRoute from "./routes/entreRoute.js";
 import businessIdeaRouter from "./routes/BIRoute.js";
-import investRouter from "./routes/investorRoute.js";
 import locationRouter from "./routes/locationRoute.js";
 import uploadRouter from "./storage/uploadRoute.js";
 import advisorRouter from "./routes/advisorRoutes.js";
 import Queryrouter from "./routes/queryRoutes.js";
 import investmentRouter from "./routes/investmentRoutes.js";
 import advisorQueryRouter from "./routes/advisorQueryRouter.js";
+import investorRouter from "./routes/investorRoute.js";
 
 const app = express();
 
@@ -45,10 +45,10 @@ app.use(cookieParser());
 app.use("/user", userRouter);
 app.use("/entrepreneur", entrepreneurRoute);
 app.use("/business-idea", businessIdeaRouter);
-app.use("/investor", investRouter);
+app.use("/investor", investorRouter);
 app.use("/location", locationRouter);
 app.use("/advisor", advisorRouter);
-app.use("/invest",investmentRouter);
+app.use("/investment",investmentRouter);
 app.use("/queries",Queryrouter);
 app.use("/upload-documents", uploadRouter);
 app.use("/advisor/queries", advisorQueryRouter)

@@ -7,14 +7,14 @@ import {
   getInvestorStats,
 } from "../controllers/Dashboard/InvestorController.js";
 
-const investRouter = express.Router();
+const investorRouter = express.Router();
 
 // Register a new investor
-investRouter.post("/register", registerInvestor);
+investorRouter.post("/register", registerInvestor);
 
 // 🚨 NEW: Get current investor profile for autofill
 // In investorRoute.js
-investRouter.get("/profile", isAuthenticated, async (req, res) => {
+investorRouter.get("/profile", isAuthenticated, async (req, res) => {
   try {
     // Populate the user reference to get personal details
     const investor = await investorModel
@@ -42,9 +42,9 @@ investRouter.get("/profile", isAuthenticated, async (req, res) => {
   }
 });
 // ✅ Get all investments of the logged-in user
-investRouter.get("/investments", isAuthenticated, getInvestorInvestments);
+investorRouter.get("/investments", isAuthenticated, getInvestorInvestments);
 
 // ✅ Get investor dashboard stats: total amount, top sectors, etc.
-investRouter.get("/stats", isAuthenticated, getInvestorStats);
+investorRouter.get("/stats", isAuthenticated, getInvestorStats);
 
-export default investRouter;
+export default investorRouter;
