@@ -18,7 +18,6 @@ import queryRouter from "./routes/queryRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
 app.use(bodyParser.json());
 const allowedOrigins = ['https://fundify-frontend-pi.vercel.app'];
 
@@ -50,7 +49,6 @@ mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
-    console.log("MONGODB_URI:", process.env.MONGODB_URI);
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB", err);
