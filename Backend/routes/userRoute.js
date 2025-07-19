@@ -35,7 +35,7 @@ userRouter.get("/auth", async (req, res) => {
 
 userRouter.get("/me", verifyToken, async (req, res) => {
   try {
-    const user = await UserModel.findById(req.userId).select("-password");
+    const user = await userModel.findById(req.userId).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json({ user });
