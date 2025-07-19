@@ -20,6 +20,14 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+const allowedOrigins = ['https://fundify-frontend-pi.vercel.app'];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 app.use("/user", userRouter);
 app.use("/entrepreneur", entrepreneurRoute);
