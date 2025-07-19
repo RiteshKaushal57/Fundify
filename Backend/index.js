@@ -34,6 +34,10 @@ app.use("/advisor/queries", advisorQueryRouter);
 
 const PORT = process.env.PORT || 4000;
 
+app.use('/', (req, res) => {
+  res.send("Welcome to Fundify Backend API");
+});
+
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -44,4 +48,4 @@ mongoose
     console.error("Error connecting to MongoDB", err);
   });
 
-  export default app
+  export default app;
