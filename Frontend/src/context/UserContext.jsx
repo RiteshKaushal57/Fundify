@@ -27,6 +27,28 @@ export const UserContextProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+  useEffect(() => {
+  const fetchLoggedInUser = async () => {
+    try {
+      const res = await fetch("https://fundify-backend-eight.vercel.app/user/me", {
+        credentials: "include", // this sends cookies
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.user); // your current user state
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
+      setUser(null);
+    }
+  };
+
+  fetchLoggedInUser();
+}, []);
+
+
   // Fetch user profile utility (for KYC refresh)
   const fetchUserProfile = async () => {
     try {

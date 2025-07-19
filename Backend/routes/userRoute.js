@@ -6,7 +6,7 @@ import {
   addRole,
   completeKYC,
 } from '../controllers/userController.js';
-import { isAuthenticated } from '../middleware/authenticateUser.js';
+import { isAuthenticated, verifyToken } from '../middleware/authenticateUser.js';
 import userModel from '../models/userModel.js';
 import { sanitizeUser } from '../utils/sanitizeUser.js';
 import jwt from 'jsonwebtoken';
@@ -30,6 +30,17 @@ userRouter.get("/auth", async (req, res) => {
     res.json({ user: sanitizeUser(user) });
   } catch (error) {
     return res.status(200).json({ user: null });
+  }
+});
+
+userRouter.get("/me", verifyToken, async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.userId).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 

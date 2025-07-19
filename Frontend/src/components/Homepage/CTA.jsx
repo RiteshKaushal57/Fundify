@@ -10,12 +10,6 @@ const CTASection = () => (
         Connect, invest, and grow with the best startups and investors. 
         Take your next step with Fundify—where ideas meet opportunity.
       </p>
-      <a
-        href="/register"
-        className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-10 py-4 rounded-full shadow-lg text-lg transition"
-      >
-        Get Started Now
-      </a>
     </div>
   </section>
 );
