@@ -3,18 +3,18 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import connectToMongoDB from "../MongoDB/connection.js";
+import connectToMongoDB from "./MongoDB/connection.js";
 
 // Importing routes
-import userRouter from "../routes/userRoute.js";
-import entrepreneurRoute from "../routes/entreRoute.js";
-import businessIdeaRouter from "../routes/BIRoute.js";
-import investRouter from "../routes/investorRoute.js";
-import locationRouter from "../routes/locationRoute.js";
-import uploadRouter from "../storage/uploadRoute.js";
-import advisorRouter from "../routes/advisorRoutes.js";
-import Queryrouter from "../routes/queryRoutes.js";
-import investmentRouter from "../routes/investmentRoutes.js";
+import userRouter from "./routes/userRoute.js";
+import entrepreneurRoute from "./routes/entreRoute.js";
+import businessIdeaRouter from "./routes/BIRoute.js";
+import investRouter from "./routes/investorRoute.js";
+import locationRouter from "./routes/locationRoute.js";
+import uploadRouter from "./storage/uploadRoute.js";
+import advisorRouter from "./routes/advisorRoutes.js";
+import Queryrouter from "./routes/queryRoutes.js";
+import investmentRouter from "./routes/investmentRoutes.js";
 
 const app = express();
 
