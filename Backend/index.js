@@ -1,74 +1,71 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import cors from "cors";
-import cookieParser from "cookie-parser";
-import connectToMongoDB from "./MongoDB/connection.js";
+import bodyParser from "body-parser";
 
-// Importing routes
 import userRouter from "./routes/userRoute.js";
 import entrepreneurRoute from "./routes/entreRoute.js";
 import businessIdeaRouter from "./routes/BIRoute.js";
-import locationRouter from "./routes/locationRoute.js";
-import uploadRouter from "./storage/uploadRoute.js";
-import advisorRouter from "./routes/advisorRoutes.js";
-import Queryrouter from "./routes/queryRoutes.js";
-import investmentRouter from "./routes/investmentRoutes.js";
-import advisorQueryRouter from "./routes/advisorQueryRouter.js";
 import investorRouter from "./routes/investorRoute.js";
+import locationRouter from "./routes/locationRoute.js";
+import advisorRouter from "./routes/advisorRoutes.js";
+import investmentRouter from "./routes/InvestmentRoutes.js";
+import Queryrouter from "./routes/QueryRoutes.js";
+import uploadRouter from "./storage/uploadRoute.js";
+import advisorQueryRouter from "./routes/advisorQueryRouter.js";
+
+dotenv.config();
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
-const allowedOrigins = [
-  "https://fundify-frontend-pi.vercel.app"
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS Policy"));
-    }
-  },
-  credentials: true
-};
-
-app.use(express.json());
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight
-
-
-
-app.use(cookieParser());
-
-// 🟩 2) Route mounting
+// ========== Debug Logging Before Each Route ==========
+console.log("Mounting /user");
 app.use("/user", userRouter);
+
+console.log("Mounting /entrepreneur");
 app.use("/entrepreneur", entrepreneurRoute);
+
+console.log("Mounting /business-idea");
 app.use("/business-idea", businessIdeaRouter);
+
+console.log("Mounting /investor");
 app.use("/investor", investorRouter);
+
+console.log("Mounting /location");
 app.use("/location", locationRouter);
+
+console.log("Mounting /advisor");
 app.use("/advisor", advisorRouter);
-app.use("/investment",investmentRouter);
-app.use("/queries",Queryrouter);
+
+console.log("Mounting /investment");
+app.use("/investment", investmentRouter);
+
+console.log("Mounting /queries");
+app.use("/queries", Queryrouter);
+
+console.log("Mounting /upload-documents");
 app.use("/upload-documents", uploadRouter);
-app.use("/advisor/queries", advisorQueryRouter)
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Fundify");
-});
-
-connectToMongoDB(); // fire and forget
-
-// After all app.use(...) calls
-app.use((req, res) => {
-  res.status(404).json({ error: `Route "${req.originalUrl}" not found` });
-});
-
+console.log("Mounting /advisor/queries");
+app.use("/advisor/queries", advisorQueryRouter);
+// =====================================================
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log("Server is running");
-});
 
-
+mongoose
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB", err);
+  });
