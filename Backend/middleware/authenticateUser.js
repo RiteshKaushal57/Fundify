@@ -32,14 +32,19 @@ export const requireRole = (...allowedRoles) => (req, res, next) => {
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
-
-  if (!token) return res.status(401).json({ message: "Not authenticated" });
+  if (!token) {
+    console.log("Token not found in cookies");
+    return res.status(401).json({ message: "Not authenticated" });
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded JWT:", decoded);
     req.userId = decoded.id;
     next();
   } catch (err) {
+    console.error("JWT verification failed:", err);
     return res.status(403).json({ message: "Invalid token" });
   }
 };
+

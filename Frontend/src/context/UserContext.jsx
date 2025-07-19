@@ -27,26 +27,22 @@ export const UserContextProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
   const fetchLoggedInUser = async () => {
     try {
       const res = await axios.get(`${BACKEND_URL}/user/me`, {
-        credentials: "include", // this sends cookies
+        withCredentials: true, // ✅ Correct for Axios
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.user); // your current user state
-      } else {
-        setUser(null);
-      }
+      setUser(res.data.user); // ✅ Axios gives data directly
     } catch (err) {
-      setUser(null);
+      setUser(null); // ❌ Error = user not logged in
     }
   };
 
   fetchLoggedInUser();
 }, []);
+
 
 
   // Fetch user profile utility (for KYC refresh)
