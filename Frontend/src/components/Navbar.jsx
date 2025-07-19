@@ -60,7 +60,7 @@ const Navbar = () => {
 
         {/* Navigation Links (Desktop) */}
         <div className="hidden md:flex space-x-6 items-center">
-          <Link to="/invest" className="text-gray-200 hover:text-indigo-400 font-medium">Invest</Link>
+          <Link to="/business-idea" className="text-gray-200 hover:text-indigo-400 font-medium">Invest</Link>
           <Link to="/postIdea" className="text-gray-200 hover:text-indigo-400 font-medium">Share your idea</Link>
           <Link to="/about" className="text-gray-200 hover:text-indigo-400 font-medium">About us</Link>
           <Link to="/how-it-works" className="text-gray-200 hover:text-indigo-400 font-medium">How It Works</Link>
@@ -89,7 +89,7 @@ const Navbar = () => {
           ref={menuRef}
           className="absolute right-4 top-16 w-fit px-8 gap-2 bg-gradient-to-br from-[#212130] via-[#2e2a44] to-[#39304A] border border-gray-700 rounded-lg shadow-lg z-50 md:hidden flex flex-col py-2"
         >
-          <Link to="/invest" onClick={handleMenuLinkClick} className="text-gray-200 hover:text-indigo-400 font-medium">Invest</Link>
+          <Link to="/business-idea" onClick={handleMenuLinkClick} className="text-gray-200 hover:text-indigo-400 font-medium">Invest</Link>
           <Link to="/postIdea" onClick={handleMenuLinkClick} className="text-gray-200 hover:text-indigo-400 font-medium">Share your idea</Link>
           <Link to="/about" onClick={handleMenuLinkClick} className="text-gray-200 hover:text-indigo-400 font-medium">About us</Link>
           <Link to="/how-it-works" onClick={handleMenuLinkClick} className="text-gray-200 hover:text-indigo-400 font-medium">How It Works</Link>
