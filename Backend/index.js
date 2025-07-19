@@ -19,7 +19,7 @@ import investmentRouter from "./routes/investmentRoutes.js";
 const app = express();
 
 const allowedOrigins = [
-  "https://fundify-frontend-two.vercel.app"
+  "https://fundify-frontend-pi.vercel.app"
 ];
 
 const corsOptions = {
