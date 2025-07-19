@@ -47,8 +47,8 @@ app.use("/", businessIdeaRouter);
 app.use("/investor", investRouter);
 app.use("/location", locationRouter);
 app.use("/advisor", advisorRouter);
-app.use(investmentRouter);
-app.use(Queryrouter);
+app.use("/",investmentRouter);
+app.use("/",Queryrouter);
 app.use("/upload-documents", uploadRouter);
 
 
