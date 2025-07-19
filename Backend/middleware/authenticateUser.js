@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 dotenv.config();
 import jwt from "jsonwebtoken";
 
@@ -8,27 +8,33 @@ export const isAuthenticated = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // decoded.roles is an array
-    next(); 
+    next();
   } catch (error) {
     console.error("Authentication error:", error);
     res.status(401).json({ message: "Invalid token" });
   }
 };
 
-export const requireRole = (...allowedRoles) => (req, res, next) => {
-  // Normalize both user roles and allowedRoles to lower case for comparison
-  const userRoles = req.user?.roles?.map(r => r.toLowerCase());
-  const allowed = allowedRoles.map(r => r.toLowerCase());
+export const requireRole =
+  (...allowedRoles) =>
+  (req, res, next) => {
+    // Normalize both user roles and allowedRoles to lower case for comparison
+    const userRoles = req.user?.roles?.map((r) => r.toLowerCase());
+    const allowed = allowedRoles.map((r) => r.toLowerCase());
 
-  if (!userRoles || !Array.isArray(userRoles)) {
-    return res.status(403).json({ error: "No roles assigned." });
-  }
-  const hasRole = allowed.some(role => userRoles.includes(role));
-  if (!hasRole) {
-    return res.status(403).json({ error: `Access denied. Only [${allowedRoles.join(', ')}] allowed.` });
-  }
-  next();
-};
+    if (!userRoles || !Array.isArray(userRoles)) {
+      return res.status(403).json({ error: "No roles assigned." });
+    }
+    const hasRole = allowed.some((role) => userRoles.includes(role));
+    if (!hasRole) {
+      return res
+        .status(403)
+        .json({
+          error: `Access denied. Only [${allowedRoles.join(", ")}] allowed.`,
+        });
+    }
+    next();
+  };
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
@@ -40,11 +46,15 @@ export const verifyToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded JWT:", decoded);
-    req.userId = decoded.id;
+    req.userId = decoded._id;
     next();
+
+    if (!req.userId) {
+      console.error("Missing userId in request");
+      return res.status(400).json({ message: "Invalid token payload" });
+    }
   } catch (err) {
     console.error("JWT verification failed:", err);
     return res.status(403).json({ message: "Invalid token" });
   }
 };
-
