@@ -27,7 +27,7 @@ const corsOptions = {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      callback(new Error("Not allowed by CORS Policy"));
     }
   },
   credentials: true
@@ -58,14 +58,9 @@ app.get("/", (req, res) => {
 
 connectToMongoDB(); // fire and forget
 
-// const PORT = process.env.PORT || 4000;
-// app.listen(PORT, () => {
-//   console.log("Server is running");
-// });
-
-app.get("/ping", (req, res) => {
-  res.send("pong");
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log("Server is running");
 });
 
 
-export default app;
